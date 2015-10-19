@@ -3,13 +3,10 @@ using System.Collections;
 
 public class KillScript : MonoBehaviour
 {
-    private Vector3 startPos;
 
 	// Use this for initialization
 	void Start ()
 	{
-	    startPos = transform.position;
-
 	}
 	
 	// Update is called once per frame
@@ -18,8 +15,8 @@ public class KillScript : MonoBehaviour
 
 	    if (transform.position.y < -10)
 	    {
-            transform.position = startPos;
-	    }
+            Application.LoadLevel(Application.loadedLevel);
+        }
 	
 	}
 
@@ -27,7 +24,7 @@ public class KillScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            transform.position = startPos;
+            Application.LoadLevel(Application.loadedLevel);
         }
     
 
