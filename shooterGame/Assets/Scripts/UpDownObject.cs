@@ -28,7 +28,7 @@ public class UpDownObject : MonoBehaviour {
     {
         float randomWaitSeconds = Random.Range(1f, 2F);
 
-        // suspend execution for 2 seconds
+        // suspend execution for x seconds
         yield return new WaitForSeconds(randomWaitSeconds);
 
         float elapsedTime = 0;
