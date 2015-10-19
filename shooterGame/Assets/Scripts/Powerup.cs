@@ -5,15 +5,28 @@ public class Powerup : MonoBehaviour {
 
 	bool machineGunUnlocked;
 
-	GameObject powerup;
+	GameObject powerUp;
+	GameObject player;
+
+	BoxCollider powerCollider;
 
 	// Use this for initialization
 	void Start () {
 		machineGunUnlocked = false;
+		powerUp = GameObject.FindWithTag("PowerUp");
+		powerCollider = powerUp.GetComponent<BoxCollider>();
+		player = GameObject.Find("Player");
 	}
 	
+
+	void OnTriggerEnter(Collider powerCollider) {
+		StartCoroutine("MachineGunPower");
+		Destroy(powerUp);
+	}
+
 	// Update is called once per frame
 	void Update () {
+		
 		
 	}
 
@@ -21,4 +34,15 @@ public class Powerup : MonoBehaviour {
 	public bool GetMachineGun () {
 		return machineGunUnlocked;
 	}
+
+	void setMachineGun (bool mac) {
+		machineGunUnlocked = mac;
+	}
+
+	IEnumerator MachineGunPower() {
+		setMachineGun(true);
+		yield return new WaitForSeconds(10.0f);
+		setMachineGun(false);
+	}
+
 }
