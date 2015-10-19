@@ -6,10 +6,10 @@ public class PlayerMovements : MonoBehaviour{
 	//public float Verticalspeed = 10.0F;
 	public float Horizontalspeed = 10.0F;
 	public float jumpSpeed = 1.0f;
-	public GameObject rocket;
+	public Rigidbody rocket;
 	public float speed = 10.0f;
 
-	GameObject bullet;
+	Rigidbody bullet;
 
 //	float GroundDistance = 0;
 	Rigidbody rig;
@@ -63,10 +63,10 @@ public class PlayerMovements : MonoBehaviour{
 		shootDirection.z = 0.0f;
 		shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
 		shootDirection = shootDirection-transform.position;
-		bullet = Instantiate(rocket, transform.position,
-						 Quaternion.Euler(new Vector3(0,0,0))) as GameObject;
+		bullet = Instantiate (rocket, transform.position,
+		                      Quaternion.identity) as Rigidbody;
 		//bullet.GetComponent<Rigidbody>().velocity = new Vector3(shootDirection.x * speed, shootDirection.y * speed, 0);
-		bullet.GetComponent<Rigidbody>().AddForce(shootDirection * speed, ForceMode.Force);
+		bullet.velocity = transform.TransformDirection(shootDirection * speed);
 	}
 
 }
