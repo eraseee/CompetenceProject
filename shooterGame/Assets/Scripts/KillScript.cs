@@ -13,16 +13,11 @@ public class KillScript : MonoBehaviour
 	void Update ()
     {
 
-	    if (transform.position.y < -10)
-	    {
-            Application.LoadLevel(Application.loadedLevel);
-        }
-	
 	}
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "RollingObstacle")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "RollingObstacle" || collision.gameObject.tag == "DeathTrigger")
         {
             Application.LoadLevel(Application.loadedLevel);
         }
