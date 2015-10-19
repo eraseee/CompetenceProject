@@ -22,7 +22,7 @@ public class KillScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "RollingObstacle")
         {
             Application.LoadLevel(Application.loadedLevel);
         }
