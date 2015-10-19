@@ -3,21 +3,22 @@ using System.Collections;
 
 public class PlayerMovements : MonoBehaviour{
 
-	//public float Verticalspeed = 10.0F;
 	public float Horizontalspeed = 10.0F;
 	public float jumpSpeed = 1.0f;
-	public Rigidbody rocket;
-	public float speed = 10.0f;
+	// public Rigidbody rocket;
+	// public float speed = 10.0f;
+	// 
+	// Rigidbody bullet;
 
-	Rigidbody bullet;
-
-//	float GroundDistance = 0;
 	Rigidbody rig;
 	RaycastHit hit;
 	CapsuleCollider caps;
 	float distToGround;
+	// bool canShoot;
+	// bool machineGunUnlocked;
+	bool canJump;
 
-	Vector3 shootDirection;
+	// Vector3 shootDirection;
 
 
 	// Use this for initialization
@@ -25,24 +26,31 @@ public class PlayerMovements : MonoBehaviour{
 		rig = GetComponent<Rigidbody>();
 		caps = GetComponent<CapsuleCollider>();
 		distToGround = caps.bounds.extents.y;
-		Debug.Log(distToGround);
-//		rocket = Resources.Load("Rocket") as GameObject;
+		// canShoot = true;
+		canJump = true;
 	}
 
 
+	void FixedUpdate() {
+		if(isGrounded() && Input.GetKey("w") && canJump || isGrounded() && Input.GetKey("up") && canJump){
+			// rig.velocity = new vector3(0,0,0);
+			StartCoroutine("jumping");
+		}
+	}
+
 	// Update is called once per frame
 	void Update() {
-		//float VerticalTranslation = Input.GetAxis("Vertical") * Verticalspeed;
-		//VerticalTranslation *= Time.deltaTime;
-		//rig.AddForce(Vector3.up * VerticalTranslation);
-		//transform.Translate(0, VerticalTranslation, 0);
-		if(isGrounded() && Input.GetKey("w") || isGrounded() && Input.GetKey("up")){
-			jump();
-		}
+		// if(isGrounded() && Input.GetKey("w") || isGrounded() && Input.GetKey("up")){
+		// 	rig.velocity = new vector3(0,0,0);
+		// 	jump();
+		// }
 
-		if(Input.GetMouseButtonDown(0)){
-			shoot();
-		}
+		// if(Input.GetMouseButton(0) && canShoot && machineGunUnlocked){
+		// 	StartCoroutine("machineGun");
+		// }
+		// else if(Input.GetMouseButton(0) && canShoot) {
+		// 	StartCoroutine("gunShot");
+		// }
 
 		float HorizontalTranslation = Input.GetAxis("Horizontal") * Horizontalspeed;
 		HorizontalTranslation *= Time.deltaTime;
@@ -50,23 +58,48 @@ public class PlayerMovements : MonoBehaviour{
 	}
 
 	bool isGrounded() {
-		return Physics.Raycast(rig.position, -Vector3.up, GetComponent<CapsuleCollider>().bounds.extents.y + 0.1f);
-		//return true;
+		return Physics.Raycast(rig.position, -Vector3.up, caps.bounds.extents.y + 0.1f);
 	}
 
 	void jump() {
 		rig.AddForce(Vector3.up * jumpSpeed, ForceMode.VelocityChange);
 	}
 
-	void shoot() {
-		shootDirection = Input.mousePosition;
-		shootDirection.z = 0.0f;
-		shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
-		shootDirection = shootDirection-transform.position;
-		bullet = Instantiate (rocket, transform.position,
-		                      Quaternion.identity) as Rigidbody;
-		//bullet.GetComponent<Rigidbody>().velocity = new Vector3(shootDirection.x * speed, shootDirection.y * speed, 0);
-		bullet.velocity = transform.TransformDirection(shootDirection * speed);
+
+	IEnumerator jumping() {
+		canJump = false;
+		jump();
+		yield return new WaitForSeconds(0.5f);
+		canJump = true;
 	}
 
+	// void shoot(Rigidbody bullet) {
+	// 	shootDirection = Input.mousePosition;
+	// 	shootDirection.z = 0.0f;
+	// 	shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
+	// 	shootDirection = shootDirection-transform.position;
+	// 	bullet.velocity = transform.TransformDirection(shootDirection * speed);
+	// 	Physics.IgnoreCollision(bullet.GetComponent<collider>(), caps);
+	// }
+	// 
+	// 
+	// IEnumerator gunShot() {
+	// 	canShoot = false;
+	// 	bullet = Instantiate (rocket, transform.position,
+	// 												Quaternion.identity) as Rigidbody;
+	// 	shoot(bullet);
+	// 	yield return new WaitForSeconds(0.5f);
+	// 	Destroy(bullet.gameObject);
+	// 	canShoot = true;
+	// }
+	// 
+	// IEnumerator machineGun() {
+	// 	canShoot = false;
+	// 	bullet = Instantiate (rocket, transform.position,
+	// 												Quaternion.identity) as Rigidbody;
+	// 	shoot(bullet);
+	// 	yield return new WaitForSeconds(0.05f);
+	// 	Destroy(bullet.gameObject);
+	// 	canShoot = true;
+	// }
 }
