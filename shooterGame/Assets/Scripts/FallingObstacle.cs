@@ -39,6 +39,7 @@ public class FallingObstacle : MonoBehaviour {
         yield return new WaitForSeconds(2);
         isShaking = false;
         parent.GetComponent<Rigidbody>().isKinematic = false;
+        Destroy(parent.GetComponent<BoxCollider>());
     }
 
     IEnumerator OnTriggerEnter(Collider col)
