@@ -16,6 +16,7 @@ public class PlayerMovements : MonoBehaviour{
 	RaycastHit hit;
 	CapsuleCollider caps;
 	float distToGround;
+	bool canShoot;
 
 	Vector3 shootDirection;
 
@@ -25,7 +26,7 @@ public class PlayerMovements : MonoBehaviour{
 		rig = GetComponent<Rigidbody>();
 		caps = GetComponent<CapsuleCollider>();
 		distToGround = caps.bounds.extents.y;
-		Debug.Log(distToGround);
+		canShoot = true;
 //		rocket = Resources.Load("Rocket") as GameObject;
 	}
 
@@ -40,8 +41,8 @@ public class PlayerMovements : MonoBehaviour{
 			jump();
 		}
 
-		if(Input.GetMouseButtonDown(0)){
-			shoot();
+		if(Input.GetMouseButtonDown(0) && canShoot){
+			StartCoroutine("gunShot");
 		}
 
 		float HorizontalTranslation = Input.GetAxis("Horizontal") * Horizontalspeed;
@@ -58,15 +59,24 @@ public class PlayerMovements : MonoBehaviour{
 		rig.AddForce(Vector3.up * jumpSpeed, ForceMode.VelocityChange);
 	}
 
-	void shoot() {
+	void shoot(Rigidbody bullet) {
 		shootDirection = Input.mousePosition;
 		shootDirection.z = 0.0f;
 		shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
 		shootDirection = shootDirection-transform.position;
-		bullet = Instantiate (rocket, transform.position,
-		                      Quaternion.identity) as Rigidbody;
 		//bullet.GetComponent<Rigidbody>().velocity = new Vector3(shootDirection.x * speed, shootDirection.y * speed, 0);
 		bullet.velocity = transform.TransformDirection(shootDirection * speed);
+		Physics.IgnoreCollision(bullet.collider, caps);
 	}
 
+
+	IEnumerator gunShot() {
+		canShoot = false;
+		bullet = Instantiate (rocket, transform.position,
+													Quaternion.identity) as Rigidbody;
+		shoot(bullet);
+		yield return new WaitForSeconds(0.5f);
+		Destroy(bullet.gameObject);
+		canShoot = true;
+	}
 }
