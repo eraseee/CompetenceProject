@@ -6,7 +6,7 @@ public class KillScript : MonoBehaviour
 {
     private CapsuleCollider caps;
     public Text text;
-    private int timeToComplete = 200;
+    public int timeToComplete = 100;
 
 	// Use this for initialization
 	void Start ()
@@ -17,8 +17,15 @@ public class KillScript : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-        int secondsPlayed = (int) (Time.time % 60);
-	    text.text = "Time left: " + (timeToComplete - secondsPlayed);
+        int secondsPlayed = (int) (Time.timeSinceLevelLoad % 60);
+	    int time = (timeToComplete - secondsPlayed);
+
+	    if (time == 0)
+	    {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
+        text.text = "Time left: " + time;
 
         if (Physics.Raycast(transform.position, Vector3.up, caps.bounds.extents.y + 0.1f))
 	    {
@@ -30,7 +37,7 @@ public class KillScript : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "KillingObstacle" || collision.gameObject.tag == "DeathTrigger")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "KillingObstacle" || collision.gameObject.tag == "DeathTrigger" || collision.gameObject.tag == "RollingObstacle")
         {
             Application.LoadLevel(Application.loadedLevel);
         }
