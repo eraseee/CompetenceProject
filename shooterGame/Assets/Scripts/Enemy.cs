@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class Enemy : MonoBehaviour {
-    
+
+    public float Randommin;
+    public float Randommax; 
     public Transform target;
     NavMeshAgent agent;
 	// Use this for initialization
@@ -16,7 +18,7 @@ public class Enemy : MonoBehaviour {
     void FixedUpdate() {
         if (agent.remainingDistance == 0) {
             Debug.Log("hello");
-            target.position = new Vector3(target.position.x - Random.Range(-10.0f, 10.0f), target.position.y, target.position.z);
+            target.position = new Vector3(target.position.x - Random.Range(Randommin, Randommax), target.position.y, target.position.z);
             agent.SetDestination(target.position);
            
             }
