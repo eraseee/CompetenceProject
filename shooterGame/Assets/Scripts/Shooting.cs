@@ -3,34 +3,46 @@ using System.Collections;
 
 public class Shooting : MonoBehaviour {
 
-	public Rigidbody rocket;
+	public GameObject rocket;
 	public float speed = 10.0f;
 
-	Rigidbody bullet;
+	GameObject bullet;
+	GameObject invis;
+	GameObject returnBullet;
 
 	bool canShoot;
 	bool machineGunUnlocked;
+	bool shotFired;
 
 	Vector3 shootDirection;
+	Ray lookingAt;
 
-	Vector3 lookingAt;
+	Vector3 lookTarget;
 
 	Powerup powerup;
 
+	RaycastHit hit;
+
 	// Use this for initialization
 	void Start () {
+		shotFired = false;
 		canShoot = true;
 		machineGunUnlocked = false;
 		powerup = GameObject.Find("Player").GetComponent<Powerup>();
+		// invis = GameObject.Find("ShootingThing");
 	}
 
 	// Update is called once per frame
 	void Update () {
-		// lookingAt = Input.mousePosition;
-		// lookingAt = Camera.main.ScreenToWorldPoint(lookingAt);
-		// lookingAt = lookingAt - transform.position;
-		// float angle = Mathf.Atan2(lookingAt.y, lookingAt.x) * Mathf.Rad2Deg;
-		// transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		// lookingAt = Camera.main.ScreenPointToRay(Input.mousePosition);
+		// if(Physics.Raycast(lookingAt, out hit)){
+		// 	lookTarget = hit.point;
+		// }
+		// // lookingAt = lookingAt - transform.position;
+		// // float angle = Mathf.Atan2(lookingAt.z, lookingAt.y) * Mathf.Rad2Deg;
+		// // transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		// 
+		// invis.transform.LookAt(lookTarget);
 
 		machineGunUnlocked = powerup.GetMachineGun();
 
@@ -40,36 +52,43 @@ public class Shooting : MonoBehaviour {
 		else if(Input.GetMouseButton(0) && canShoot) {
 			StartCoroutine("gunShot");
 		}
-
+		if(shotFired) {
+			Debug.Log("SUP BRAH I'M SHOOTING AT YOU");
+			returnBullet.transform.Translate(shootDirection * Time.deltaTime * speed);
+		}
 	}
 
-	void shoot(Rigidbody bullet) {
+	GameObject shoot(GameObject bullet) {
+		shotFired = true;
 		shootDirection = Input.mousePosition;
-		shootDirection.z = 0.0f;
 		shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
+		shootDirection.z = 0.0f;
 		shootDirection = shootDirection-transform.position;
-		bullet.velocity = transform.TransformDirection(shootDirection * speed);
-		//Physics.IgnoreCollision(bullet.GetComponent<collider>(), caps);
+		returnBullet = bullet;
+		return returnBullet;
 	}
 
 
 	IEnumerator gunShot() {
 		canShoot = false;
 		bullet = Instantiate (rocket, transform.position,
-													Quaternion.identity) as Rigidbody;
+													Quaternion.identity) as GameObject;
 		shoot(bullet);
 		yield return new WaitForSeconds(0.5f);
-		Destroy(bullet.gameObject);
+		shotFired = false;
+		Destroy(bullet);
 		canShoot = true;
 	}
 
 	IEnumerator machineGun() {
 		canShoot = false;
 		bullet = Instantiate (rocket, transform.position,
-													Quaternion.identity) as Rigidbody;
-		shoot(bullet);
-		yield return new WaitForSeconds(0.05f);
-		Destroy(bullet.gameObject);
+													Quaternion.identity) as GameObject;
+		GameObject Shots = shoot(bullet);
+		yield return new WaitForSeconds(0.25f);
 		canShoot = true;
+		yield return new WaitForSeconds(0.25f);
+		shotFired = false;
+		Destroy(Shots);
 	}
 }
