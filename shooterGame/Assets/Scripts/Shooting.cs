@@ -13,17 +13,27 @@ public class Shooting : MonoBehaviour {
 
 	Vector3 shootDirection;
 
+	Vector3 lookingAt;
 
+	Powerup powerup;
 
 	// Use this for initialization
 	void Start () {
 		canShoot = true;
 		machineGunUnlocked = false;
+		powerup = GameObject.Find("Player").GetComponent<Powerup>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+		// lookingAt = Input.mousePosition;
+		// lookingAt = Camera.main.ScreenToWorldPoint(lookingAt);
+		// lookingAt = lookingAt - transform.position;
+		// float angle = Mathf.Atan2(lookingAt.y, lookingAt.x) * Mathf.Rad2Deg;
+		// transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+		machineGunUnlocked = powerup.GetMachineGun();
+
 		if(Input.GetMouseButton(0) && canShoot && machineGunUnlocked){
 			StartCoroutine("machineGun");
 		}
