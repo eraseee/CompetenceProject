@@ -6,7 +6,7 @@ public class KillScript : MonoBehaviour
 {
     private CapsuleCollider caps;
     public Text text;
-    private int timeToComplete = 100;
+    public int timeToComplete = 100;
 
 	// Use this for initialization
 	void Start ()
@@ -17,7 +17,7 @@ public class KillScript : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-        int secondsPlayed = (int) (Time.time % 60);
+        int secondsPlayed = (int) (Time.timeSinceLevelLoad % 60);
 	    int time = (timeToComplete - secondsPlayed);
 
 	    if (time == 0)
