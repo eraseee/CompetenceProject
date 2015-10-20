@@ -39,21 +39,6 @@ public class PlayerMovements : MonoBehaviour{
 
 	// Update is called once per frame
 	void Update() {
-		// lookingAt = Input.mousePosition;
-		// lookingAt = Camera.main.ScreenToWorldPoint(lookingAt);
-		// lookingAt = lookingAt - transform.position;
-		// float angle = Mathf.Atan2(lookingAt.z, lookingAt.y) * Mathf.Rad2Deg;
-		// transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-		// mousePos = Input.mousePosition;
-		// mousePos.z = 10;
-		// objectPos = Camera.main.WorldToScreenPoint(target.position);;
-		// mousePos.x = mousePos.x - objectPos.x;
-		// mousePos.y = mousePos.y - objectPos.y;
-		// angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-		// transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
-		// 
-
 
 		JumpPower = JumpPowerUp.GetJumpUnlock();
 		float HorizontalTranslation = Input.GetAxis("Horizontal") * Horizontalspeed;
