@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking.Match;
 
 public class GoalLine : MonoBehaviour
 {
 
 
     private GameObject player;
+    private AudioSource backAudioSource; 
+
+    public AudioSource[] AudioSources;
 
 	// Use this for initialization
-	void Start () {
-
-
+	void Start ()
+	{
+	    backAudioSource = Camera.main.GetComponent<AudioSource>();
         player = GameObject.Find("Player");
 	    
 
@@ -34,8 +38,30 @@ public class GoalLine : MonoBehaviour
 
         player.GetComponent<PlayerMovements>().enabled = false;
         player.GetComponent<KillScript>().enabled = false;
-      //  player.GetComponent<Shooting>().enabled = false;
+        //  player.GetComponent<Shooting>().enabled = false;
 
+        StartCoroutine("FireWorksSound");
     }
+
+    IEnumerator FireWorksSound()
+    {
+
+        AudioSources[0].Play();
+
+
+        int timesToPlaySound = 100;
+        int i = 0;
+        backAudioSource.Stop();
+        while (i <= 100)
+        {
+            i++;
+            yield return new WaitForSeconds(1);
+            AudioSources[1].Play();
+
+        }
+    }
+
+
+
 
 }
