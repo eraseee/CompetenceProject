@@ -43,13 +43,11 @@ public class PlayerMovements : MonoBehaviour{
 	}
 
 	void jump(float jumpHeight) {
-		Debug.Log("jumpHeight = " + jumpHeight);
 		rig.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
 	}
 
 
 	IEnumerator jumping() {
-		Debug.Log("Do i enter jumping");
 		canJump = false;
 		if(JumpPower){
 		jump(jumpSpeed * 2);
