@@ -14,14 +14,16 @@ public class Powerup : MonoBehaviour {
 	void Start () {
 		machineGunUnlocked = false;
 		powerUp = GameObject.FindWithTag("PowerUp");
-		powerCollider = powerUp.GetComponent<BoxCollider>();
+		// powerCollider = powerUp.GetComponent<BoxCollider>();
 		player = GameObject.Find("Player");
 	}
 	
 
 	void OnTriggerEnter(Collider powerCollider) {
-		StartCoroutine("MachineGunPower");
-		Destroy(powerUp);
+		if(powerCollider.gameObject.tag == "PowerUp"){
+			StartCoroutine("MachineGunPower");
+			Destroy(powerUp);
+		}
 	}
 
 	// Update is called once per frame

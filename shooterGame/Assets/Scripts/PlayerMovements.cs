@@ -9,17 +9,18 @@ public class PlayerMovements : MonoBehaviour{
 	Rigidbody rig;
 	RaycastHit hit;
 	CapsuleCollider caps;
-	float distToGround;
+	JumpPowerUp JumpPowerUp;
 	bool canJump;
-
+	bool JumpPower;
 
 
 	// Use this for initialization
 	void Start () {
 		rig = GetComponent<Rigidbody>();
 		caps = GetComponent<CapsuleCollider>();
-		distToGround = caps.bounds.extents.y;
 		canJump = true;
+		JumpPower = false;
+		JumpPowerUp = GameObject.Find("Player").GetComponent<JumpPowerUp>();
 	}
 
 
@@ -31,6 +32,7 @@ public class PlayerMovements : MonoBehaviour{
 
 	// Update is called once per frame
 	void Update() {
+		JumpPower = JumpPowerUp.GetJumpUnlock();
 		float HorizontalTranslation = Input.GetAxis("Horizontal") * Horizontalspeed;
 		HorizontalTranslation *= Time.deltaTime;
 		transform.Translate(HorizontalTranslation, 0, 0);
@@ -40,17 +42,19 @@ public class PlayerMovements : MonoBehaviour{
 		return Physics.Raycast(rig.position, -Vector3.up, caps.bounds.extents.y + 0.1f);
 	}
 
-	void jump() {
-		rig.AddForce(Vector3.up * jumpSpeed, ForceMode.VelocityChange);
+	void jump(float jumpHeight) {
+		Debug.Log("jumpHeight = " + jumpHeight);
+		rig.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
 	}
 
 
 	IEnumerator jumping() {
+		Debug.Log("Do i enter jumping");
 		canJump = false;
-		jump();
+		if(JumpPower){
+		jump(jumpSpeed * 2);
+		} else jump(jumpSpeed);
 		yield return new WaitForSeconds(0.5f);
 		canJump = true;
 	}
-
-
 }
