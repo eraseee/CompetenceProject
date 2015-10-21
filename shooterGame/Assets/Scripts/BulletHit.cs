@@ -7,11 +7,16 @@ public class BulletHit : MonoBehaviour
     public int life;
     public GameObject hitExplosion;
     public GameObject deadExplosion;
+    private SphereCollider sphereCollider;
 
 
     // Use this for initialization
-    void Start () {
-	
+    void Start ()
+    {
+
+        sphereCollider = this.GetComponent<SphereCollider>();
+
+  
 	}
 	
 	// Update is called once per frame
@@ -26,15 +31,11 @@ public class BulletHit : MonoBehaviour
 
         if (collisionInfo.gameObject.tag == "Bullet")
         {
-            //Destroy(collisionInfo.gameObject);
-            collisionInfo.gameObject.SetActive(false);
 
             life--;
             if (life > 0)
             {
-                GameObject fire = Instantiate(hitExplosion, this.transform.position, Quaternion.identity) as GameObject;
-                fire.transform.parent = this.transform;
-                fire.transform.localPosition = new Vector3(0, 1.2f, -1f);
+                Instantiate(hitExplosion, this.transform.position, Quaternion.identity);
             }
             else
             {

@@ -17,7 +17,7 @@ public class KillScript : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-        int secondsPlayed = (int) (Time.timeSinceLevelLoad % 60);
+        int secondsPlayed =  Mathf.RoundToInt(Time.timeSinceLevelLoad);
 	    int time = (timeToComplete - secondsPlayed);
 
 	    if (time == 0)
@@ -27,17 +27,20 @@ public class KillScript : MonoBehaviour
 
         text.text = "Time left: " + time;
 
-        if (Physics.Raycast(transform.position, Vector3.up, caps.bounds.extents.y + 0.1f))
-	    {
-            Application.LoadLevel(Application.loadedLevel);
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, -Vector3.up, out hit, caps.bounds.extents.y + 0.1f))
+        {
+            if (hit.transform.tag == "KillingObstacle")
+            {
+                Application.LoadLevel(Application.loadedLevel);
+            }
         }
-
     }
 
     void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "KillingObstacle" || collision.gameObject.tag == "DeathTrigger" || collision.gameObject.tag == "RollingObstacle")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "KillingObstacle" || collision.gameObject.tag == "DeathTrigger")
         {
             Application.LoadLevel(Application.loadedLevel);
         }

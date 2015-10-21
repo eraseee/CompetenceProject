@@ -14,6 +14,16 @@ public class RotatingObstacle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.rotation = Quaternion.AngleAxis(RotateAmount * Mathf.Sin(Time.time * Speed), Vector3.forward) * startRotation;
+	    if (transform.position.y > -6)
+	    {
+	        transform.rotation = Quaternion.AngleAxis(RotateAmount*Mathf.Sin(Time.time*Speed), -Vector3.forward)*
+	                             startRotation;
+	    }
+	    else
+	    {
+            transform.rotation = Quaternion.AngleAxis(RotateAmount * Mathf.Sin(Time.time * Speed), Vector3.forward) *
+                                startRotation;
+        }
+        
     }
 }

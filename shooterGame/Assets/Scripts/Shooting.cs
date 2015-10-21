@@ -46,7 +46,13 @@ public class Shooting : MonoBehaviour {
 		}
 		if(shotFired) {
 			Debug.Log("SUP BRAH I'M SHOOTING AT YOU");
-			returnBullet.transform.Translate(shootDirection * Time.deltaTime * speed);
+		    {
+		        if (returnBullet != null)
+		        {
+                    returnBullet.transform.Translate(shootDirection * Time.deltaTime * speed);
+                }
+		       
+		    }
 		}
 	}
 

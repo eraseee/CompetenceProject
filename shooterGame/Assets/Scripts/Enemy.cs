@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         if (agent.remainingDistance == 0) {
-            Debug.Log("hello");
+           
             target.position = new Vector3(target.position.x - Random.Range(Randommin, Randommax), target.position.y, target.position.z);
             agent.SetDestination(target.position);
            
