@@ -13,7 +13,6 @@ public class JumpPowerUp : MonoBehaviour {
 	void Start () {
 		jumpUnlocked = false;
 		jumpPower = GameObject.FindWithTag("JumpPower");
-		player = GameObject.Find("Player");
 	}
 
 

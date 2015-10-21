@@ -14,7 +14,6 @@ public class Powerup : MonoBehaviour {
 	void Start () {
 		machineGunUnlocked = false;
 		powerUp = GameObject.FindWithTag("PowerUp");
-		player = GameObject.Find("Player");
 	}
 
 
