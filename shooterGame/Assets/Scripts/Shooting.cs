@@ -32,17 +32,15 @@ public class Shooting : MonoBehaviour {
 		// invis = GameObject.Find("ShootingThing");
 	}
 
+	private void OnCollisionEnter(Collision Other) {
+		if (Other.gameObject != null) {
+			Debug.Log("SUP NIGGUH YOU HIT SOMETHING");
+		}
+	}
+
+
 	// Update is called once per frame
 	void Update () {
-		// lookingAt = Camera.main.ScreenPointToRay(Input.mousePosition);
-		// if(Physics.Raycast(lookingAt, out hit)){
-		// 	lookTarget = hit.point;
-		// }
-		// // lookingAt = lookingAt - transform.position;
-		// // float angle = Mathf.Atan2(lookingAt.z, lookingAt.y) * Mathf.Rad2Deg;
-		// // transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-		// 
-		// invis.transform.LookAt(lookTarget);
 
 		machineGunUnlocked = powerup.GetMachineGun();
 
