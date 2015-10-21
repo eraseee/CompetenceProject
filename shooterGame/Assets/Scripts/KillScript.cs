@@ -26,15 +26,6 @@ public class KillScript : MonoBehaviour
         }
 
         text.text = "Time left: " + time;
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, -Vector3.up, out hit, caps.bounds.extents.y + 0.1f))
-        {
-            if (hit.transform.tag == "KillingObstacle")
-            {
-                Application.LoadLevel(Application.loadedLevel);
-            }
-        }
     }
 
 

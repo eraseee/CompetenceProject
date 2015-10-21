@@ -44,7 +44,11 @@ public class FallingObstacle : MonoBehaviour {
 
     IEnumerator OnTriggerEnter(Collider col)
     {
-        yield return StartCoroutine("MakeObjectFall");
+        if (col.transform.tag == "Player")
+        {
+            yield return StartCoroutine("MakeObjectFall");
+        }
+
     }
 
 }

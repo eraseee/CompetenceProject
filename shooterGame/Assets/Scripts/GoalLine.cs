@@ -31,16 +31,21 @@ public class GoalLine : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        foreach (Transform child in this.transform)
+
+        if (col.transform.tag == "Player")
         {
-            child.GetComponent<ParticleSystem>().Play();
+            foreach (Transform child in this.transform)
+            {
+                child.GetComponent<ParticleSystem>().Play();
+            }
+
+            player.GetComponent<PlayerMovements>().enabled = false;
+            player.GetComponent<KillScript>().enabled = false;
+            player.GetComponentInChildren<Shooting>().enabled = false;
+
+            StartCoroutine("FireWorksSound");
         }
-
-        player.GetComponent<PlayerMovements>().enabled = false;
-        player.GetComponent<KillScript>().enabled = false;
-        //  player.GetComponent<Shooting>().enabled = false;
-
-        StartCoroutine("FireWorksSound");
+        
     }
 
     IEnumerator FireWorksSound()
