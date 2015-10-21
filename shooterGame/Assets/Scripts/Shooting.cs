@@ -13,6 +13,7 @@ public class Shooting : MonoBehaviour {
 	bool canShoot;
 	bool machineGunUnlocked;
 	bool shotFired;
+	bool destroyShot;
 
 	Vector3 shootDirection;
 	Ray lookingAt;
@@ -29,13 +30,6 @@ public class Shooting : MonoBehaviour {
 		canShoot = true;
 		machineGunUnlocked = false;
 		powerup = GameObject.Find("Player").GetComponent<Powerup>();
-		// invis = GameObject.Find("ShootingThing");
-	}
-
-	private void OnCollisionEnter(Collision Other) {
-		if (Other.gameObject != null) {
-			Debug.Log("SUP NIGGUH YOU HIT SOMETHING");
-		}
 	}
 
 

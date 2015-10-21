@@ -13,9 +13,8 @@ public class JumpPowerUp : MonoBehaviour {
 	void Start () {
 		jumpUnlocked = false;
 		jumpPower = GameObject.FindWithTag("JumpPower");
-		player = GameObject.Find("Player");
 	}
-	
+
 
 	void OnTriggerEnter(Collider JumpCollider) {
 		if(JumpCollider.gameObject.tag == "JumpPower"){
@@ -26,10 +25,8 @@ public class JumpPowerUp : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
-		
-	}
 
+	}
 
 	public bool GetJumpUnlock () {
 		return jumpUnlocked;

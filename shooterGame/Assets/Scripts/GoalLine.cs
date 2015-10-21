@@ -7,7 +7,7 @@ public class GoalLine : MonoBehaviour
 
 
     private GameObject player;
-    private AudioSource backAudioSource; 
+    private AudioSource backAudioSource;
 
     public AudioSource[] AudioSources;
 
@@ -16,17 +16,17 @@ public class GoalLine : MonoBehaviour
 	{
 	    backAudioSource = Camera.main.GetComponent<AudioSource>();
         player = GameObject.Find("Player");
-	    
+
 
         foreach (Transform child in this.transform)
         {
             child.GetComponent<ParticleSystem>().Stop();
         }
     }
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
     void OnTriggerEnter(Collider col)
@@ -48,8 +48,6 @@ public class GoalLine : MonoBehaviour
 
         AudioSources[0].Play();
 
-
-        int timesToPlaySound = 100;
         int i = 0;
         backAudioSource.Stop();
         while (i <= 100)

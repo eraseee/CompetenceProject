@@ -14,10 +14,8 @@ public class Powerup : MonoBehaviour {
 	void Start () {
 		machineGunUnlocked = false;
 		powerUp = GameObject.FindWithTag("PowerUp");
-		// powerCollider = powerUp.GetComponent<BoxCollider>();
-		player = GameObject.Find("Player");
 	}
-	
+
 
 	void OnTriggerEnter(Collider powerCollider) {
 		if(powerCollider.gameObject.tag == "PowerUp"){
@@ -28,8 +26,7 @@ public class Powerup : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
-		
+
 	}
 
 
