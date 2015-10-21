@@ -25,17 +25,17 @@ public class BulletHit : MonoBehaviour
 	}
 
 
-    private void OnCollisionEnter(Collision collisionInfo)
+    private void OnTriggerEnter(Collider col)
     {
 
 
-        if (collisionInfo.gameObject.tag == "Bullet")
+        if (col.gameObject.tag == "Bullet")
         {
 
             life--;
             if (life > 0)
             {
-                Instantiate(hitExplosion, this.transform.position, Quaternion.identity);
+                Instantiate(hitExplosion, new Vector3(this.transform.position.x, this.transform.position.y, -5), Quaternion.identity);
             }
             else
             {

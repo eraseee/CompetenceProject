@@ -15,6 +15,12 @@ public class DestroyBulletOnHit : MonoBehaviour
 			Destroy(this.gameObject);
 	}
 
+    void OnTriggerEnter(Collider col)
+    {
+        Debug.Log("AM I STIlL HITTING??");
+        Destroy(this.gameObject);
+    }
+
     // Update is called once per frame
     void Update ()
 	{

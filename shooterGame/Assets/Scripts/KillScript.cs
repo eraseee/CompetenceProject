@@ -40,19 +40,10 @@ public class KillScript : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.transform.tag == "KillingObstacle")
+        if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "KillingObstacle" || col.gameObject.tag == "DeathTrigger")
         {
             Application.LoadLevel(Application.loadedLevel);
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "KillingObstacle" || collision.gameObject.tag == "DeathTrigger")
-        {
-            Application.LoadLevel(Application.loadedLevel);
-        }
-   
-    }
 }
