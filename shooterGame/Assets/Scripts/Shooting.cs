@@ -45,13 +45,12 @@ public class Shooting : MonoBehaviour {
 			StartCoroutine("gunShot");
 		}
 		if(shotFired) {
-			Debug.Log("SUP BRAH I'M SHOOTING AT YOU");
 		    {
 		        if (returnBullet != null)
 		        {
                     returnBullet.transform.Translate(shootDirection * Time.deltaTime * speed);
                 }
-		       
+
 		    }
 		}
 	}

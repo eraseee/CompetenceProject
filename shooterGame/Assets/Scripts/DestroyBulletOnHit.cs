@@ -11,13 +11,11 @@ public class DestroyBulletOnHit : MonoBehaviour
 	}
 
 	void OnCollisionEnter(Collision Other) {
-			Debug.Log("AM I STIlL HITTING??");
 			Destroy(this.gameObject);
 	}
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("AM I STIlL HITTING??");
         Destroy(this.gameObject);
     }
 

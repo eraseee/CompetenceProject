@@ -7,6 +7,7 @@ public class Powerup : MonoBehaviour {
 
 	GameObject powerUp;
 	GameObject player;
+	Renderer rend;
 
 	BoxCollider powerCollider;
 
@@ -14,6 +15,7 @@ public class Powerup : MonoBehaviour {
 	void Start () {
 		machineGunUnlocked = false;
 		powerUp = GameObject.FindWithTag("PowerUp");
+		player = GameObject.Find("Player");
 	}
 
 
@@ -40,7 +42,10 @@ public class Powerup : MonoBehaviour {
 
 	IEnumerator MachineGunPower() {
 		setMachineGun(true);
+		rend = player.GetComponent<Renderer>();
+		rend.material.SetColor("_Color", Color.green);
 		yield return new WaitForSeconds(10.0f);
+		rend.material.SetColor("_Color", Color.blue);
 		setMachineGun(false);
 	}
 

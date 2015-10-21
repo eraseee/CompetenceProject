@@ -6,6 +6,7 @@ public class JumpPowerUp : MonoBehaviour {
 
 	GameObject jumpPower;
 	GameObject player;
+	Renderer rend;
 
 	BoxCollider powerCollider;
 
@@ -13,6 +14,7 @@ public class JumpPowerUp : MonoBehaviour {
 	void Start () {
 		jumpUnlocked = false;
 		jumpPower = GameObject.FindWithTag("JumpPower");
+		player = GameObject.Find("Player");
 	}
 
 
@@ -38,7 +40,10 @@ public class JumpPowerUp : MonoBehaviour {
 
 	IEnumerator JumpPower() {
 		setJumpPower(true);
+		rend = player.GetComponent<Renderer>();
+		rend.material.SetColor("_Color", Color.red);
 		yield return new WaitForSeconds(10.0f);
+		rend.material.SetColor("_Color", Color.blue);
 		setJumpPower(false);
 	}
 }
