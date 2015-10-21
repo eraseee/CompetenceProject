@@ -37,6 +37,15 @@ public class KillScript : MonoBehaviour
         }
     }
 
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.transform.tag == "KillingObstacle")
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
 
